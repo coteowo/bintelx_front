@@ -138,6 +138,8 @@ async function validateTokenAPI(token) {
 /**
  * The main function called by the router to check session status.
  */
+
+/*
 async function validateAndShowOverlayIfNeeded() {
     // 1. check for a cached session in the current tab.
     const lastValidation = sessionStorage.getItem(SESSION_TIMESTAMP_KEY);
@@ -162,6 +164,13 @@ async function validateAndShowOverlayIfNeeded() {
         return false;
     }
 }
+*/
+async function validateAndShowOverlayIfNeeded() {
+  // Desactivamos toda verificación y permitimos acceso directo
+  return true;
+}
+
+
 export const authFlow = {
     validate: validateAndShowOverlayIfNeeded,
 };

@@ -1,0 +1,39 @@
+/* details.css */
+#mailbox-details-panel {
+  align-items: center;
+  text-align: center;
+  background-color: #ffffff;
+  border-left: 1px solid #e5e7eb;
+  height: 100vh;
+  width: 15%;
+  max-width: 150px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 1rem;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.05);
+  z-index: 10;
+}
+
+#toggle-sidebar {
+  transition: all 0.3s ease;
+}
+#mailbox-details-panel.collapsed {
+  width: 0;
+  min-width: 0;
+  overflow: hidden;
+  padding: 0;
+}
+
+#mailbox-details-panel.collapsed * {
+  display: none;
+}
+.btn-container {
+  margin-top: 150%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  gap: 1rem;
+}

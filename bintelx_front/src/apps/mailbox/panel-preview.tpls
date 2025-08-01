@@ -1,0 +1,4 @@
+<section class="card1">
+  <h2 class="text-xl font-bold mb-4">Vista Previa</h2>
+  <div id="mailbox-preview" class="text-sm text-gray-700"></div>
+</section>

@@ -1,0 +1,48 @@
+/* preview.css */
+
+#mailbox-preview {
+  font-size: 0.875rem; /* tamaño texto pequeño */
+  color: #4b5563; /* gris text-gray-700 */
+  padding: 1rem;
+  background: white;
+  border-radius: 0.5rem;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.preview-card {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  padding: 1rem; /* agrega padding para que el contenido no quede pegado */
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* espacio vertical entre campos */
+}
+
+.preview-field {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 1rem;
+  color: #333;
+}
+
+.preview-field strong {
+  width: 80px; /* ancho fijo para etiquetas */
+  color: #555;
+  flex-shrink: 0; /* que no se reduzca el ancho */
+}
+
+.preview-value {
+  flex: 1;
+  word-break: break-word;
+}
+
+.preview-body {
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: #444;
+  margin-top: 1rem;
+  border-top: 1px solid #e5e7eb; /* línea para separar cuerpo */
+  padding-top: 1rem;
+}

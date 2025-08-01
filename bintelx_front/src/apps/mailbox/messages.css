@@ -1,0 +1,67 @@
+/* messages.css */
+
+/* Panel principal que contiene la lista de mensajes */
+.card1 {
+  text-align: left;                 /* mejor alineación para textos */
+  background-color: #ffffff;
+  border: 1px solid #d1d5db;       /* Tailwind gray-300 */
+  border-radius: 0.5rem;            /* Bordes redondeados */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Scroll vertical en el panel */
+.card1-scroll {
+  overflow-y: auto;
+  height: 100%;
+}
+
+/* Cada mensaje dentro del panel */
+.message-item {
+  background-color: #fff;              /* Fondo blanco */
+  border-radius: 0.5rem;               /* Bordes redondeados */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Sombra suave */
+  padding: 0.75rem 1rem;               /* Espaciado interno */
+  margin-bottom: 0.75rem;              /* Separación entre mensajes */
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;                       /* Espacio entre líneas */
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.message-item:hover {
+  background-color: #e5e7eb;          /* Cambio de fondo al pasar el mouse */
+}
+
+.message-item strong {
+  font-weight: 600;
+  color: #111827;                    /* text-gray-900 */
+}
+
+.message-item div {
+  font-size: 0.9rem;
+  color: #374151;                    /* text-gray-700 */
+}
+
+.message-item .text-xs {
+  font-size: 0.75rem;
+}
+
+.message-item .text-gray-600 {
+  color: #4b5563;
+}
+
+.message-item .text-gray-500 {
+  color: #6b7280;
+}
+
+/* Mensajes sin leer: fondo azul claro y texto en negrita */
+.message-item.font-bold {
+  font-weight: 700;
+  background-color: #dbeafe; /* azul claro */
+}
