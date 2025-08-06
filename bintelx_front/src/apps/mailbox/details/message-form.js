@@ -73,15 +73,16 @@ export function showMessage(id, previewContainer, detailsContainer) {
       `).join('')}
     </div>
 
-    <main class="overflow-y-auto max-h-40 bg-white rounded shadow-inner p-3 mb-4 flex flex-col gap-2"></main>
-    <footer class="flex gap-2">
-      <input
-        type="text"
-        placeholder="Write a message..."
-        class="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-      />
-      <button class="bg-blue-600 text-white rounded px-4 py-2 hover:bg-blue-700 transition">Enviar</button>
-    </footer>
+<main class="message-list overflow-y-auto max-h-40 bg-white rounded shadow-inner p-3 mb-4 flex flex-col gap-2"></main>
+<footer class="flex gap-2">
+  <input
+    type="text"
+    placeholder="Write a message..."
+    class="message-input flex-1 border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+  />
+  <button class="send-button bg-blue-600 text-white rounded px-4 py-2 hover:bg-blue-700 transition">Enviar</button>
+</footer>
+
   `;
 
   initMessageForm(detailsContainer);
