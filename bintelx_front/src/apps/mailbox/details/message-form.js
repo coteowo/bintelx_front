@@ -2,7 +2,7 @@
 
 import { conversations, actions } from '../data.mock.js';
 import { renderMessageList } from '../messages/messages.js';
-
+import { cargarMensajes } from '../utils/storage.js';
 
 
 export default function initMessageForm(container) {
@@ -49,7 +49,8 @@ export default function initMessageForm(container) {
 }
 
 export function showMessage(id, previewContainer, detailsContainer) {
-  const msg = conversations.find(m => m.id === id);
+  const mensajes = cargarMensajes();       // Cambiado: cargar mensajes dinámicos
+  const msg = mensajes.find(m => m.id === id);
   if (!msg) return;
 
   previewContainer.innerHTML = `
@@ -85,7 +86,6 @@ export function showMessage(id, previewContainer, detailsContainer) {
 
   initMessageForm(detailsContainer);
 }
-
 // ✅ Ajustado: también recibe messageContainer como argumento
 function initFilterButtons(buttonContainer, messageContainer, handleSelect) {
   const buttons = buttonContainer.querySelectorAll(".btn");

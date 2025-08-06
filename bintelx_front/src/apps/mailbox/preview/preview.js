@@ -3,7 +3,7 @@ import { conversations } from '../data.mock.js';
 
 // Renderiza el mensaje en el contenedor preview según el id del mensaje
 export function renderPreview(container, messageId) {
-  const mensajes = conversations;
+  const mensajes = cargarMensajes();
   const msg = mensajes.find(m => m.id == messageId);
 
   if (!msg) {

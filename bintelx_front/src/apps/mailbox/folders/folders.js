@@ -1,11 +1,10 @@
-//bintelx_front\src\apps\mailbox\folders\folders.js
+// bintelx_front/src/apps/mailbox/folders/folders.js
+
 import { renderMessageList } from '../messages/messages.js';
 import { renderPreview } from '../preview/preview.js';
 import { renderDetails } from '../details/details.js';
 import initMessageForm from '../details/message-form.js';
-import { conversations } from '../data.mock.js';
-
-
+import { cargarMensajes } from '../utils/storage.js';
 
 export const sidebarOptions = [
   { name: 'Bandeja', icon: '📥', categoryFilter: 'inbox' },   // Bandeja de entrada
@@ -61,6 +60,12 @@ function renderMessagesWithPreview(category) {
   const previewContainer = document.getElementById('mailbox-preview');
   const detailsContainer = document.getElementById('mailbox-details');
 
+  // Cargar mensajes desde localStorage
+  const mensajes = cargarMensajes();
+
+  // Filtrar por categoría
+  const mensajesFiltrados = mensajes.filter(msg => msg.category === category);
+
   // Renderizar lista filtrada
   renderMessageList(messageListContainer, (id) => {
     // Cuando seleccionan otro mensaje, actualizar preview y detalles
@@ -69,15 +74,13 @@ function renderMessagesWithPreview(category) {
     initMessageForm(detailsContainer);
   }, category);
 
-  // Obtener primer mensaje filtrado para mostrar por defecto
-  const mensajesFiltrados = conversations.filter(msg => msg.category === category);
+  // Mostrar primer mensaje filtrado o mensaje vacío si no hay
   if (mensajesFiltrados.length > 0) {
     const primerId = mensajesFiltrados[0].id;
     renderPreview(previewContainer, primerId);
     renderDetails(detailsContainer, primerId);
     initMessageForm(detailsContainer);
   } else {
-    // Si no hay mensajes en esa categoría, limpiar preview y detalles
     previewContainer.innerHTML = '<p>No hay mensajes para mostrar.</p>';
     detailsContainer.innerHTML = '';
   }

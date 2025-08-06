@@ -1,4 +1,4 @@
-import { conversations } from '../data.mock.js';
+import { cargarMensajes, guardarMensajes } from '../utils/storage.js';
 
 export function setupFormEnviar(onEnviar) {
   const form = document.getElementById('form-enviar');
@@ -21,17 +21,26 @@ export function setupFormEnviar(onEnviar) {
       return;
     }
 
+    // Cargar mensajes actuales
+    const mensajes = cargarMensajes();
+
+    // Crear nuevo mensaje
     const nuevoMensaje = {
-      id: Date.now(),
+      id: Date.now(), // id único con timestamp
       from: 'yo@miapp.com', // o el usuario actual si usas autenticación
       to,
       subject,
       body,
       category: 'sent', // Categoría enviados
+      date: new Date().toISOString().slice(0, 10), // fecha actual, opcional
+      unread: false,
     };
 
     // Agregar el mensaje a la lista
-    conversations.push(nuevoMensaje);
+    mensajes.push(nuevoMensaje);
+
+    // Guardar mensajes actualizados en localStorage
+    guardarMensajes(mensajes);
 
     console.log('Nuevo mensaje agregado:', nuevoMensaje);
 

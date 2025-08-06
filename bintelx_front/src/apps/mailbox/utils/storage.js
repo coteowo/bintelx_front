@@ -1,7 +1,13 @@
+// Importa los mensajes por defecto desde tu mock
 import { conversations as defaultConversations } from '../data.mock.js';
 
+// Clave usada para almacenar los mensajes en localStorage
 const STORAGE_KEY = 'mailbox_mensajes_simulados';
 
+/**
+ * Guarda los mensajes en localStorage de forma persistente.
+ * @param {Array} mensajes - Lista de mensajes a guardar.
+ */
 export function guardarMensajes(mensajes) {
   try {
     const json = JSON.stringify(mensajes);
@@ -11,11 +17,15 @@ export function guardarMensajes(mensajes) {
   }
 }
 
+/**
+ * Carga los mensajes desde localStorage. Si no hay datos, usa los mensajes por defecto.
+ * @returns {Array} Lista de mensajes.
+ */
 export function cargarMensajes() {
   try {
     const json = localStorage.getItem(STORAGE_KEY);
     if (!json) {
-      // Si no hay datos guardados, carga los mensajes por defecto
+      // Si no hay nada guardado, inicializa con los mensajes por defecto
       guardarMensajes(defaultConversations);
       return defaultConversations;
     }
@@ -26,6 +36,9 @@ export function cargarMensajes() {
   }
 }
 
+/**
+ * Borra los mensajes guardados en localStorage.
+ */
 export function limpiarMensajes() {
   localStorage.removeItem(STORAGE_KEY);
 }

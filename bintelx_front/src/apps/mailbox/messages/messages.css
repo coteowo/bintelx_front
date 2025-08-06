@@ -93,3 +93,15 @@
   background-color: #bfdbfe; /* Tailwind blue-200 */
   font-weight: 700;
 }
+
+.btn-refresh {
+  font-size: 1.5rem; /* emoji un poco más grande */
+  padding: 0.5rem;
+  width: 3rem;
+  justify-content: center;
+}
+
+.btn-options {
+
+
+}
