@@ -1,1 +1,38 @@
-[{"path": "/mailbox", "app": "mailbox", "prefix": "", "moduleName": "index"}]
+[
+  {
+    "path": "/mailbox",
+    "app": "mailbox",
+    "prefix": "",
+    "moduleName": "index"
+  },
+  {
+    "path": "/mailbox/folders",
+    "app": "mailbox/folders",
+    "prefix": "",
+    "moduleName": "index"
+  },
+  {
+    "path": "/mailbox/details",
+    "app": "mailbox/details",
+    "prefix": "",
+    "moduleName": "index"
+  },
+  {
+    "path": "/mailbox/messages",
+    "app": "mailbox/messages",
+    "prefix": "",
+    "moduleName": "index"
+  },
+  {
+    "path": "/mailbox/preview",
+    "app": "mailbox/preview",
+    "prefix": "",
+    "moduleName": "index"
+  },
+  {
+    "path": "/mailbox/utils",
+    "app": "mailbox/utils",
+    "prefix": "",
+    "moduleName": "index"
+  }
+]

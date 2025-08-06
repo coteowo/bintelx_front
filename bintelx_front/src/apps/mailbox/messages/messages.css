@@ -1,11 +1,16 @@
 /* messages.css */
 
 /* Panel principal que contiene la lista de mensajes */
+
+
+
+
+
 .card1 {
   text-align: left;                 /* mejor alineación para textos */
   background-color: #ffffff;
-  border: 1px solid #d1d5db;       /* Tailwind gray-300 */
-  border-radius: 0.5rem;            /* Bordes redondeados */
+  border: 0.5px solid #eceef1;       /* Tailwind gray-300 */
+  border-radius: 0rem;            /* Bordes redondeados */
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   padding: 1rem;
   height: 100%;
@@ -64,4 +69,27 @@
 .message-item.font-bold {
   font-weight: 700;
   background-color: #dbeafe; /* azul claro */
+}
+
+.btn-active {
+  background-color: #3b82f6; /* azul por ejemplo */
+  color: white;
+  border-color: #2563eb; /* azul más oscuro para el borde */
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.6); /* sombra suave azul */
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+.btn:hover {
+  background-color: #6aa7f7; /* azul muy claro hover */
+  border-color: #1b5fcc;
+}
+
+/* Mensaje seleccionado (cuando se le añade la clase bg-gray-300) */
+.message-item.bg-gray-300 {
+  background-color: #d1d5db; /* Tailwind gray-300, fondo gris claro */
+}
+
+/* Opcional: mensaje seleccionado + no leído más destacado */
+.message-item.bg-gray-300.font-bold {
+  background-color: #bfdbfe; /* Tailwind blue-200 */
+  font-weight: 700;
 }

@@ -1,0 +1,9 @@
+<section id="zona-enviar" class="card1 p-4">
+  <h2 class="text-xl font-bold mb-4">Redactar nuevo mensaje</h2>
+  <form id="form-enviar" class="flex flex-col gap-4">
+    <input type="email" name="to" placeholder="Para..." required class="input" />
+    <input type="text" name="subject" placeholder="Asunto..." required class="input" />
+    <textarea name="body" rows="5" placeholder="Escribe tu mensaje..." required class="input"></textarea>
+    <button type="submit" class="btn btn-primary self-start">Enviar</button>
+  </form>
+</section>

@@ -3,10 +3,24 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-  background-color: #f9fafb; /* Tailwind gray-50 */
-  border: 2px solid #e5e7eb; /* Tailwind gray-200 */
-  height: 90%;
+  background-color: #d6dadf; /* Tailwind gray-50 */
+  
+  border-top: 2px solid #e5e7eb; /* Tailwind gray-200 */
+  border-left: 2px solid #e5e7eb;
+  border-bottom: 2px solid #e5e7eb;
+  
+
+  /* Setup Bordes */
+  border-radius: 20px;
+  border-bottom-right-radius: 0%;
+  border-top-right-radius: 0%;
+
+  
+  
+
+  height: 100%;
   width: 100%;
+  margin-top: 0%;
 }
 
 .btn-folder {
@@ -14,6 +28,7 @@
   color: #374151; /* gray-700 */
   padding: 0.5rem 1rem;
   margin-bottom: 8px;
+  
   border-radius: 0.5rem;
   text-align: left;
   font-weight: 500;

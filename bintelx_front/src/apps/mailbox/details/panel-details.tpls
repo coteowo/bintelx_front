@@ -1,5 +1,3 @@
-
-
 <button id="toggle-sidebar" class="fixed top-2 right-2 z-50 bg-white border rounded px-2 py-1 shadow hover:bg-gray-100">
   🡸 Ocultar
 </button>
@@ -9,12 +7,6 @@
     <button>Opciones</button>
   </h4>
 
-
-
+  <!-- Este main se llena dinámicamente con renderDetails() -->
   <main id="mailbox-details" class="flex-1 bg-white rounded shadow-inner p-3 mb-4"></main>
-
-  <footer class="flex justify-end gap-2">
-    <!-- (Opcional) otros botones extra abajo -->
-    <button class="bg-blue-600 text-white rounded px-4 py-2 hover:bg-blue-700 transition">Guardar</button>
-  </footer>
 </aside>

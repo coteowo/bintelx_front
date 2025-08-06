@@ -2,7 +2,7 @@
 
 #mailbox-preview {
   font-size: 0.875rem; /* tamaño texto pequeño */
-  color: #4b5563; /* gris text-gray-700 */
+  color: #eceef1;  /* gris text-gray-700 */
   padding: 1rem;
   background: white;
   border-radius: 0.5rem;
@@ -13,7 +13,7 @@
 .preview-card {
   background-color: #fff;
   border-radius: 0.5rem;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+ /* box-shadow: 0 1px 4px rgba(0,0,0,0.1); */
   padding: 1rem; /* agrega padding para que el contenido no quede pegado */
   display: flex;
   flex-direction: column;

@@ -1,8 +1,0 @@
-<section class="card1 card1-scroll">
-  <h2 class="text-xl font-bold mb-4">Inbox</h2>
-    <div class="mb-4 flex gap-2">
-    <button class="btn btn-primary">General</button>
-    <button class="btn btn-secondary">Todos</button>
-  </div>
-  <div id="mailbox-message-list" class="space-y-3"></div>
-</section>

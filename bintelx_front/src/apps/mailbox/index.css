@@ -7,3 +7,27 @@
   height: 100vh;
 }
 
+/* Aplicar solo en pantallas grandes */
+@media (min-width: 1024px) {
+  #mailbox-panel-folders,
+  #mailbox-panel-list,
+  #mailbox-panel-preview {
+    border-radius: 0;
+    border-right: 1px solid #ddd;
+  }
+
+  #mailbox-panel-folders {
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+  }
+
+  #mailbox-panel-preview {
+    border-right: none;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+  }
+
+  #mailbox-panel-details {
+    margin-left: 0.5rem; /* separador visual */
+  }
+}
