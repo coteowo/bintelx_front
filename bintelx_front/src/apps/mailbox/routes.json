@@ -34,5 +34,11 @@
     "app": "mailbox/utils",
     "prefix": "",
     "moduleName": "index"
+  },
+  {
+    "path": "/mailbox/_debug",
+    "app": "mailbox/_debug",
+    "prefix": "",
+    "moduleName": "index"
   }
 ]

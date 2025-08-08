@@ -42,3 +42,15 @@ export function cargarMensajes() {
 export function limpiarMensajes() {
   localStorage.removeItem(STORAGE_KEY);
 }
+
+
+
+let perfilActivo = null;
+
+export function setPerfilActivo(perfil) {
+  perfilActivo = perfil;
+}
+
+export function getPerfilActivo() {
+  return perfilActivo;
+}

@@ -1,5 +1,7 @@
 import { cargarMensajes, guardarMensajes } from '../utils/storage.js';
+import { getCurrentDebugProfile } from '../_debug/debug.js';
 
+ // FORM AQUI SE ENVIAN LOS MENSAJES DE VERDA
 export function setupFormEnviar(onEnviar) {
   const form = document.getElementById('form-enviar');
 
@@ -11,7 +13,6 @@ export function setupFormEnviar(onEnviar) {
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    // Obtener valores del formulario con validación simple
     const to = form.elements.to?.value?.trim();
     const subject = form.elements.subject?.value?.trim();
     const body = form.elements.body?.value?.trim();
@@ -21,30 +22,24 @@ export function setupFormEnviar(onEnviar) {
       return;
     }
 
-    // Cargar mensajes actuales
     const mensajes = cargarMensajes();
 
-    // Crear nuevo mensaje
     const nuevoMensaje = {
-      id: Date.now(), // id único con timestamp
-      from: 'yo@miapp.com', // o el usuario actual si usas autenticación
+      id: Date.now(),
+      from: getCurrentDebugProfile(),  // aquí está el cambio clave
       to,
       subject,
       body,
-      category: 'sent', // Categoría enviados
-      date: new Date().toISOString().slice(0, 10), // fecha actual, opcional
+      category: 'sent',
+      date: new Date().toISOString().slice(0, 10),
       unread: false,
     };
 
-    // Agregar el mensaje a la lista
     mensajes.push(nuevoMensaje);
-
-    // Guardar mensajes actualizados en localStorage
     guardarMensajes(mensajes);
 
     console.log('Nuevo mensaje agregado:', nuevoMensaje);
 
-    // Llamar el callback para refrescar UI, si existe
     if (typeof onEnviar === 'function') onEnviar(nuevoMensaje);
 
     form.reset();

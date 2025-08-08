@@ -39,11 +39,5 @@ export function renderDetails(container, messageId) {
 
   initMessageForm(container); // Esto debe usar también cargarMensajes() internamente
 
-  const sidebar = document.getElementById('mailbox-details-panel');
-  const toggleBtn = document.getElementById('toggle-sidebar');
-  toggleBtn.addEventListener('click', () => {
-    sidebar.classList.toggle('collapsed');
-    const collapsed = sidebar.classList.contains('collapsed');
-    toggleBtn.textContent = collapsed ? '🡺 Mostrar' : '🡸 Ocultar';
-  });
+
 }

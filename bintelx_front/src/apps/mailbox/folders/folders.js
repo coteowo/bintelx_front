@@ -1,19 +1,25 @@
-// bintelx_front/src/apps/mailbox/folders/folders.js
-
 import { renderMessageList } from '../messages/messages.js';
 import { renderPreview } from '../preview/preview.js';
 import { renderDetails } from '../details/details.js';
 import initMessageForm from '../details/message-form.js';
 import { cargarMensajes } from '../utils/storage.js';
+import { initDebugPanel, getCurrentDebugProfile } from '../_debug/debug.js';
 
 export const sidebarOptions = [
-  { name: 'Bandeja', icon: '📥', categoryFilter: 'inbox' },   // Bandeja de entrada
-  { name: 'Enviados', icon: '📤', categoryFilter: 'sent' },   // Mensajes enviados
+  { name: 'Bandeja', icon: '📥', categoryFilter: 'inbox' },
+  { name: 'Enviados', icon: '📤', categoryFilter: 'sent' },
   { name: 'Dashboard', icon: '📊' },
   { name: 'Estadísticas', icon: '📈' },
   { name: 'Ayuda', icon: '❓' },
   { name: 'Enviar correo', icon: '✉️', isSendButton: true },
+  { name: 'Debug', icon: '🐞', isDebugButton: true },
 ];
+
+// Perfil activo global (inicializado con el perfil por defecto del debug)
+let perfilActivo = getCurrentDebugProfile();
+
+// Guarda la carpeta/categoría activa para refrescar al cambiar perfil
+let categoriaActiva = null;
 
 export function renderFolders(container) {
   container.innerHTML = '';
@@ -30,6 +36,11 @@ export function renderFolders(container) {
         return;
       }
 
+      if (opt.isDebugButton) {
+        mostrarPanelDebug();
+        return;
+      }
+
       // Marcar activo
       const buttons = container.querySelectorAll('button');
       buttons.forEach(b => b.classList.remove('active'));
@@ -37,44 +48,53 @@ export function renderFolders(container) {
 
       console.log(`Carpeta seleccionada: ${opt.name}`);
 
-      // Si tiene filtro de categoría, renderizar mensajes y cargar el primero en preview y detalles
       if (opt.categoryFilter) {
+        categoriaActiva = opt.categoryFilter; // guarda carpeta activa
         renderMessagesWithPreview(opt.categoryFilter);
       } else {
-        // Lógica para otros botones si se requiere
+        categoriaActiva = null; // no hay carpeta activa para otras opciones
       }
     });
 
     container.appendChild(btn);
   });
 
-  // Opcional: activa el primer botón con filtro categoryFilter al cargar
+  // Click al primer botón con filtro para cargar mensajes
   const firstFilterBtn = [...container.querySelectorAll('button')]
-    .find(btn => btn.classList.contains('btn-folder') && sidebarOptions.find(opt => opt.name === btn.textContent.trim() && opt.categoryFilter));
+    .find(btn =>
+      btn.classList.contains('btn-folder') &&
+      sidebarOptions.find(opt => opt.name === btn.textContent.trim() && opt.categoryFilter)
+    );
   if (firstFilterBtn) firstFilterBtn.click();
 }
 
-// Función que renderiza lista filtrada, y además muestra primer mensaje en preview y detalles
 function renderMessagesWithPreview(category) {
   const messageListContainer = document.getElementById('mailbox-message-list');
   const previewContainer = document.getElementById('mailbox-preview');
   const detailsContainer = document.getElementById('mailbox-details');
 
-  // Cargar mensajes desde localStorage
   const mensajes = cargarMensajes();
 
-  // Filtrar por categoría
-  const mensajesFiltrados = mensajes.filter(msg => msg.category === category);
+  // Filtrar por categoría y por perfil activo 'from'
+  const mensajesFiltrados = mensajes.filter(msg => {
+    console.log("Perfil activo en filtro:", perfilActivo);
 
-  // Renderizar lista filtrada
+    if (category === 'inbox') {
+      return msg.category === 'inbox' && msg.to === perfilActivo;
+    } else if (category === 'sent') {
+      return msg.category === 'sent' && msg.from === perfilActivo;
+    } else {
+      return msg.category === category && (msg.to === perfilActivo || msg.from === perfilActivo);
+    }
+  });
+
+
   renderMessageList(messageListContainer, (id) => {
-    // Cuando seleccionan otro mensaje, actualizar preview y detalles
     renderPreview(previewContainer, id);
     renderDetails(detailsContainer, id);
     initMessageForm(detailsContainer);
-  }, category);
+  }, category, perfilActivo);
 
-  // Mostrar primer mensaje filtrado o mensaje vacío si no hay
   if (mensajesFiltrados.length > 0) {
     const primerId = mensajesFiltrados[0].id;
     renderPreview(previewContainer, primerId);
@@ -102,8 +122,52 @@ function abrirFormularioEnviarCorreo() {
   import('../messages/message-form.js').then(({ setupFormEnviar }) => {
     setupFormEnviar((nuevoMensaje) => {
       alert('Mensaje enviado correctamente');
-      // Refrescar la lista en enviados para que el usuario vea el nuevo mensaje
-      renderMessagesWithPreview('sent');
+      // Refresca carpeta actual para mostrar el nuevo mensaje
+      if (categoriaActiva) renderMessagesWithPreview(categoriaActiva);
     });
   });
+}
+
+function mostrarPanelDebug() {
+  const previewContainer = document.getElementById('mailbox-preview');
+  const detailsContainer = document.getElementById('mailbox-details');
+  if (!previewContainer || !detailsContainer) return;
+
+  previewContainer.innerHTML = `
+    <div id="debug-panel" class="debug-container p-2 border-b mb-2 bg-gray-100 rounded"></div>
+  `;
+
+  detailsContainer.innerHTML = `
+    <div class="p-4">
+      <h3 class="text-lg font-bold mb-2">🐞 Panel de Debug</h3>
+      <p>Usa el selector para cambiar el perfil y el botón de refresco para actualizar mensajes.</p>
+    </div>
+  `;
+
+  const debugPanel = previewContainer.querySelector('#debug-panel');
+  if (debugPanel) {
+    initDebugPanel(
+      debugPanel,
+      () => {
+        console.log('[DEBUG] Refrescando mensajes desde panel lateral');
+        // Puedes refrescar la carpeta activa si quieres
+        if (categoriaActiva) renderMessagesWithPreview(categoriaActiva);
+      },
+      (nuevoPerfil) => {
+        console.log('[DEBUG] Perfil cambiado a:', nuevoPerfil);
+        perfilActivo = nuevoPerfil;
+        // Al cambiar perfil, refrescar carpeta activa para mostrar mensajes filtrados
+        if (categoriaActiva) renderMessagesWithPreview(categoriaActiva);
+      }
+    );
+
+    // Al mostrar panel Debug, no mostramos mensajes en listas ni detalles
+    // Puedes vaciar contenedores si quieres
+    const messageListContainer = document.getElementById('mailbox-message-list');
+    if (messageListContainer) messageListContainer.innerHTML = '';
+
+    const detailsContainer2 = document.getElementById('mailbox-details');
+    if (detailsContainer2) detailsContainer2.innerHTML = '';
+
+  }
 }

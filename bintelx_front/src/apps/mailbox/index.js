@@ -9,6 +9,8 @@ import './messages/messages.css';
 import './preview/preview.css';
 import './details/details.css';
 
+import { initDebugPanel, getCurrentDebugProfile } from './_debug/debug.js';
+
 import { renderFolders } from './folders/folders.js';
 import { renderMessageList } from './messages/messages.js';
 import { renderPreview } from './preview/preview.js';
@@ -24,14 +26,36 @@ import detailsTpl from './details/panel-details.tpls?raw';
 import { setupFormEnviar } from './messages/message-form.js';
 
 export default function renderMailboxApp(container) {
+  // 1. Montar layout base
   container.innerHTML = layoutTpl;
 
+  // 2. Montar paneles desde templates
   document.getElementById('mailbox-panel-folders').innerHTML = foldersTpl;
   document.getElementById('mailbox-panel-list').innerHTML = listTpl;
   document.getElementById('mailbox-panel-preview').innerHTML = previewTpl;
   document.getElementById('mailbox-panel-details').innerHTML = detailsTpl;
 
-  setupMailboxFeatures();
+  setTimeout(() => {
+    const debugContainer = document.getElementById('debug-panel');
+    if (debugContainer) {
+      initDebugPanel(debugContainer, () => {
+        console.log('[DEBUG] Refrescando mensajes para:', getCurrentDebugProfile());
+
+        const messageListContainer = document.getElementById('mailbox-message-list');
+        renderMessageList(messageListContainer, handleMessageClick, 'todos');
+      });
+    }
+    setupMailboxFeatures();
+  }, 0);
+}
+
+function handleMessageClick(id) {
+  const previewContainer = document.getElementById('mailbox-preview');
+  const detailsContainer = document.getElementById('mailbox-details');
+
+  renderPreview(previewContainer, id);
+  renderDetails(detailsContainer, id);
+  initMessageForm(detailsContainer);
 }
 
 function setupMailboxFeatures() {
@@ -40,12 +64,23 @@ function setupMailboxFeatures() {
   const previewContainer = document.getElementById('mailbox-preview');
   const detailsContainer = document.getElementById('mailbox-details');
 
+  // Sidebar toggle
+  const toggleBtn = document.getElementById('toggle-sidebar');
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      const sidebar = document.getElementById('mailbox-details-panel');
+      sidebar.classList.toggle('collapsed');
+      const collapsed = sidebar.classList.contains('collapsed');
+      toggleBtn.textContent = collapsed ? '🡺 Mostrar' : '🡸 Ocultar';
+    });
+  }
+
   if (!foldersContainer || !messageListContainer || !previewContainer || !detailsContainer) {
     console.error('Faltan contenedores en el DOM');
     return;
   }
 
-  // Toolbar
+  // Toolbar acciones
   const toolbarEl = document.getElementById("details-toolbar");
   if (toolbarEl) {
     const toolbar = new ActionToolbar(toolbarEl);
@@ -66,23 +101,10 @@ function setupMailboxFeatures() {
   // Render carpetas
   renderFolders(foldersContainer);
 
-  // Función para manejar clic en un mensaje
-  const handleMessageClick = (id) => {
-    renderPreview(previewContainer, id);
-    renderDetails(detailsContainer, id);
-    initMessageForm(detailsContainer);
-  };
-
-  // Renderizar lista de mensajes, pero sin auto-selección
+  // Render lista mensajes
   renderMessageList(messageListContainer, handleMessageClick, 'todos');
 
-  // ❌ Eliminar esta parte para evitar vista previa automática
-  // if (conversations.length > 0) {
-  //   const firstId = conversations[0].id;
-  //   handleMessageClick(firstId);
-  // }
-
-  // Al enviar un mensaje, volver a mostrar la lista completa
+  // Setup formulario solo aquí (una vez)
   setupFormEnviar(() => {
     renderMessageList(messageListContainer, handleMessageClick, 'todos');
   });
