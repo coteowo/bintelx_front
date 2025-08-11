@@ -2,7 +2,6 @@ import { renderMessageList } from '../messages/messages.js';
 import { renderPreview } from '../preview/preview.js';
 import { renderDetails } from '../details/details.js';
 import initMessageForm from '../details/message-form.js';
-import { cargarMensajes } from '../utils/storage.js';
 import { initDebugPanel, getCurrentDebugProfile } from '../_debug/debug.js';
 
 export const sidebarOptions = [
@@ -17,9 +16,7 @@ export const sidebarOptions = [
 
 // Perfil activo global (inicializado con el perfil por defecto del debug)
 let perfilActivo = getCurrentDebugProfile();
-
-// Guarda la carpeta/categoría activa para refrescar al cambiar perfil
-let categoriaActiva = null;
+let categoriaActiva = null; // Guarda carpeta/categoría activa para refrescar
 
 export function renderFolders(container) {
   container.innerHTML = '';
@@ -49,10 +46,10 @@ export function renderFolders(container) {
       console.log(`Carpeta seleccionada: ${opt.name}`);
 
       if (opt.categoryFilter) {
-        categoriaActiva = opt.categoryFilter; // guarda carpeta activa
+        categoriaActiva = opt.categoryFilter;
         renderMessagesWithPreview(opt.categoryFilter);
       } else {
-        categoriaActiva = null; // no hay carpeta activa para otras opciones
+        categoriaActiva = null;
       }
     });
 
@@ -73,37 +70,17 @@ function renderMessagesWithPreview(category) {
   const previewContainer = document.getElementById('mailbox-preview');
   const detailsContainer = document.getElementById('mailbox-details');
 
-  const mensajes = cargarMensajes();
-
-  // Filtrar por categoría y por perfil activo 'from'
-  const mensajesFiltrados = mensajes.filter(msg => {
-    console.log("Perfil activo en filtro:", perfilActivo);
-
-    if (category === 'inbox') {
-      return msg.category === 'inbox' && msg.to === perfilActivo;
-    } else if (category === 'sent') {
-      return msg.category === 'sent' && msg.from === perfilActivo;
-    } else {
-      return msg.category === category && (msg.to === perfilActivo || msg.from === perfilActivo);
-    }
-  });
-
-
-  renderMessageList(messageListContainer, (id) => {
-    renderPreview(previewContainer, id);
-    renderDetails(detailsContainer, id);
-    initMessageForm(detailsContainer);
-  }, category, perfilActivo);
-
-  if (mensajesFiltrados.length > 0) {
-    const primerId = mensajesFiltrados[0].id;
-    renderPreview(previewContainer, primerId);
-    renderDetails(detailsContainer, primerId);
-    initMessageForm(detailsContainer);
-  } else {
-    previewContainer.innerHTML = '<p>No hay mensajes para mostrar.</p>';
-    detailsContainer.innerHTML = '';
-  }
+  // Delegamos el filtrado a messages.js
+  renderMessageList(
+    messageListContainer,
+    (id) => {
+      renderPreview(previewContainer, id);
+      renderDetails(detailsContainer, id);
+      initMessageForm(detailsContainer);
+    },
+    category,     // Filtro: 'inbox', 'sent', etc.
+    perfilActivo  // Perfil actual
+  );
 }
 
 function abrirFormularioEnviarCorreo() {
@@ -122,7 +99,6 @@ function abrirFormularioEnviarCorreo() {
   import('../messages/message-form.js').then(({ setupFormEnviar }) => {
     setupFormEnviar((nuevoMensaje) => {
       alert('Mensaje enviado correctamente');
-      // Refresca carpeta actual para mostrar el nuevo mensaje
       if (categoriaActiva) renderMessagesWithPreview(categoriaActiva);
     });
   });
@@ -150,24 +126,19 @@ function mostrarPanelDebug() {
       debugPanel,
       () => {
         console.log('[DEBUG] Refrescando mensajes desde panel lateral');
-        // Puedes refrescar la carpeta activa si quieres
         if (categoriaActiva) renderMessagesWithPreview(categoriaActiva);
       },
       (nuevoPerfil) => {
         console.log('[DEBUG] Perfil cambiado a:', nuevoPerfil);
         perfilActivo = nuevoPerfil;
-        // Al cambiar perfil, refrescar carpeta activa para mostrar mensajes filtrados
         if (categoriaActiva) renderMessagesWithPreview(categoriaActiva);
       }
     );
 
-    // Al mostrar panel Debug, no mostramos mensajes en listas ni detalles
-    // Puedes vaciar contenedores si quieres
     const messageListContainer = document.getElementById('mailbox-message-list');
     if (messageListContainer) messageListContainer.innerHTML = '';
 
     const detailsContainer2 = document.getElementById('mailbox-details');
     if (detailsContainer2) detailsContainer2.innerHTML = '';
-
   }
 }

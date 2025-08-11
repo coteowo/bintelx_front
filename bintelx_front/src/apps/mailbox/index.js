@@ -10,6 +10,7 @@ import './preview/preview.css';
 import './details/details.css';
 
 import { initDebugPanel, getCurrentDebugProfile } from './_debug/debug.js';
+import { cargarMensajes } from './utils/storage.js';
 
 import { renderFolders } from './folders/folders.js';
 import { renderMessageList } from './messages/messages.js';
@@ -40,13 +41,38 @@ export default function renderMailboxApp(container) {
     if (debugContainer) {
       initDebugPanel(debugContainer, () => {
         console.log('[DEBUG] Refrescando mensajes para:', getCurrentDebugProfile());
-
-        const messageListContainer = document.getElementById('mailbox-message-list');
-        renderMessageList(messageListContainer, handleMessageClick, 'todos');
+        renderFilteredMessages('todos');
       });
     }
     setupMailboxFeatures();
   }, 0);
+}
+
+// 🔹 Nueva función para filtrar mensajes por carpeta y perfil
+function renderFilteredMessages(category) {
+  const perfilActivo = getCurrentDebugProfile();
+  const mensajes = cargarMensajes();
+
+  const mensajesFiltrados = mensajes.filter(msg => {
+    if (category === 'inbox') {
+      return msg.category === 'inbox' &&
+        (Array.isArray(msg.to) ? msg.to.includes(perfilActivo) : msg.to === perfilActivo);
+    }
+    if (category === 'sent') {
+      return msg.category === 'sent' && msg.from === perfilActivo;
+    }
+    if (category === 'todos') {
+      return msg.to === perfilActivo || msg.from === perfilActivo;
+    }
+    return msg.category === category &&
+      (msg.to === perfilActivo || msg.from === perfilActivo);
+  });
+
+  renderMessageList(
+    document.getElementById('mailbox-message-list'),
+    handleMessageClick,
+    mensajesFiltrados
+  );
 }
 
 function handleMessageClick(id) {
@@ -60,7 +86,6 @@ function handleMessageClick(id) {
 
 function setupMailboxFeatures() {
   const foldersContainer = document.getElementById('mailbox-folders');
-  const messageListContainer = document.getElementById('mailbox-message-list');
   const previewContainer = document.getElementById('mailbox-preview');
   const detailsContainer = document.getElementById('mailbox-details');
 
@@ -75,7 +100,7 @@ function setupMailboxFeatures() {
     });
   }
 
-  if (!foldersContainer || !messageListContainer || !previewContainer || !detailsContainer) {
+  if (!foldersContainer || !previewContainer || !detailsContainer) {
     console.error('Faltan contenedores en el DOM');
     return;
   }
@@ -101,11 +126,11 @@ function setupMailboxFeatures() {
   // Render carpetas
   renderFolders(foldersContainer);
 
-  // Render lista mensajes
-  renderMessageList(messageListContainer, handleMessageClick, 'todos');
+  // Render lista mensajes (por defecto inbox)
+  renderFilteredMessages('inbox');
 
-  // Setup formulario solo aquí (una vez)
+  // Setup formulario
   setupFormEnviar(() => {
-    renderMessageList(messageListContainer, handleMessageClick, 'todos');
+    renderFilteredMessages('sent');
   });
 }

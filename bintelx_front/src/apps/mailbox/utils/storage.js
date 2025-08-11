@@ -22,6 +22,7 @@ export function guardarMensajes(mensajes) {
  * @returns {Array} Lista de mensajes.
  */
 export function cargarMensajes() {
+
   try {
     const json = localStorage.getItem(STORAGE_KEY);
     if (!json) {
