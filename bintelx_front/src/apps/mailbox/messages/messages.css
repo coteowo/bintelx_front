@@ -1,56 +1,68 @@
 /* messages.css */
 
 /* Panel principal que contiene la lista de mensajes */
-
-
-
-
-
 .card1 {
-  text-align: left;                 /* mejor alineación para textos */
+  text-align: left;
   background-color: #ffffff;
-  border: 0.5px solid #eceef1;       /* Tailwind gray-300 */
-  border-radius: 0rem;            /* Bordes redondeados */
+  border: 0.5px solid #eceef1;
+  border-radius: 0rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   padding: 1rem;
-  height: 55%;
+
+  /* CAMBIO: quitar height fijo */
+  /* height: 55%; */
+
+  /* Usar flex para que ocupe todo el alto posible */
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+
+  /* crece para llenar el contenedor padre */
+  flex-grow: 1;
+
+  /* muy importante para que scroll interno funcione */
+  min-height: 0;
+
+  overflow: hidden; /* para que el scroll esté en el hijo */
 }
 
 /* Scroll vertical en el panel */
 .card1-scroll {
   overflow-y: auto;
-  height: 100%;
+
+  /* que ocupe todo el espacio disponible dentro de .card1 */
+  flex-grow: 1;
+  min-height: 0;
+
+  /* opcional: espacio para scroll */
+  padding-right: 0.25rem;
 }
 
 /* Cada mensaje dentro del panel */
 .message-item {
-  background-color: #fff;              /* Fondo blanco */
-  border-radius: 0.5rem;               /* Bordes redondeados */
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Sombra suave */
-  padding: 0.75rem 1rem;               /* Espaciado interno */
-  margin-bottom: 0.75rem;              /* Separación entre mensajes */
+  background-color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.75rem;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;                       /* Espacio entre líneas */
+  gap: 0.25rem;
   transition: background-color 0.2s;
   cursor: pointer;
 }
 
 .message-item:hover {
-  background-color: #e5e7eb;          /* Cambio de fondo al pasar el mouse */
+  background-color: #e5e7eb;
 }
 
 .message-item strong {
   font-weight: 600;
-  color: #111827;                    /* text-gray-900 */
+  color: #111827;
 }
 
 .message-item div {
   font-size: 0.9rem;
-  color: #374151;                    /* text-gray-700 */
+  color: #374151;
 }
 
 .message-item .text-xs {
@@ -65,48 +77,51 @@
   color: #6b7280;
 }
 
-/* Mensajes sin leer: fondo azul claro y texto en negrita */
+/* Mensajes sin leer */
 .message-item.font-bold {
   font-weight: 700;
-  background-color: #dbeafe; /* azul claro */
+  background-color: #dbeafe;
 }
 
 .btn-active {
-  background-color: #3b82f6; /* azul por ejemplo */
+  background-color: #3b82f6;
   color: white;
-  border-color: #2563eb; /* azul más oscuro para el borde */
-  box-shadow: 0 0 8px rgba(59, 130, 246, 0.6); /* sombra suave azul */
+  border-color: #2563eb;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.6);
   transition: background-color 0.3s, box-shadow 0.3s;
 }
+
 .btn:hover {
-  background-color: #6aa7f7; /* azul muy claro hover */
+  background-color: #6aa7f7;
   border-color: #1b5fcc;
 }
 
-/* Mensaje seleccionado (cuando se le añade la clase bg-gray-300) */
+/* Mensaje seleccionado */
 .message-item.bg-gray-300 {
-  background-color: #d1d5db; /* Tailwind gray-300, fondo gris claro */
+  background-color: #d1d5db;
 }
 
-/* Opcional: mensaje seleccionado + no leído más destacado */
+/* Mensaje seleccionado + no leído */
 .message-item.bg-gray-300.font-bold {
-  background-color: #bfdbfe; /* Tailwind blue-200 */
+  background-color: #bfdbfe;
   font-weight: 700;
 }
 
 .btn-refresh {
-  font-size: 1.5rem; /* emoji un poco más grande */
+  font-size: 1.5rem;
   padding: 0.5rem;
   width: 3rem;
   justify-content: center;
 }
 
+/* Contenedor de la lista de mensajes: scroll interno y ocupar espacio */
 #mailbox-message-list {
   overflow-y: auto;
+
+  /* crecer para ocupar espacio dentro del panel */
   flex-grow: 1;
+
   min-height: 0;
-  padding-right: 0.25rem; /* opcional: espacio para el scroll */
+
+  padding-right: 0.25rem;
 }
-
-
-

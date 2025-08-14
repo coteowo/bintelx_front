@@ -1,0 +1,89 @@
+<main class="login-wrapper min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-900 to-gray-800 p-4">
+  <div class="auth-container w-full max-w-md bg-white rounded-2xl p-6 shadow-lg">
+    
+    <!-- Encabezado -->
+    <div class="text-center mb-6">
+      <h1 class="font-cursive text-4xl text-gray-900">Sample text</h1>
+      <p class="text-gray-500 mt-2 text-sm">
+        Regístrate y cambia tu vida radicalmente sin sacrificarte
+      </p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="segmented-control flex border rounded-full overflow-hidden mb-6">
+      <button class="segment flex-1 py-2 text-center bg-gray-100 text-gray-900 font-semibold rounded-full active" data-tab="login">
+        Login
+      </button>
+      <button class="segment flex-1 py-2 text-center text-gray-500 font-semibold" data-tab="register">
+        Registrarme
+      </button>
+    </div>
+
+<!-- Botones sociales -->
+<div class="social-buttons mb-4">
+  <!-- Facebook -->
+  <button class="btn-social bg-white border rounded-lg p-2">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/2023_Facebook_icon.svg" alt="Facebook">
+  </button>
+
+  <!-- Google -->
+  <button class="btn-social bg-white border rounded-lg p-2">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google">
+  </button>
+
+  <!-- Apple -->
+  <button class="btn-social bg-white border rounded-lg p-2">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple">
+  </button>
+</div>
+
+
+    <!-- Botón biometría -->
+<div class="cifrid-container">
+  <button class="btn-social bg-white border rounded-lg p-2 flex items-center gap-2">
+    <img src="https://svgsilh.com/svg/654271.svg" alt="CIFRID" class="w-5 h-5 object-contain">
+    <span>Iniciar con CIFRID</span>
+  </button>
+</div>
+
+
+
+
+
+
+<!-- Separador con texto centrado -->
+<div class="separator">
+  <span>O con tu teléfono</span>
+</div>
+
+
+
+
+    <!-- Teléfono -->
+<div class="phone-input-container mb-3">
+  <select>
+    <option value="+56" selected>🇨🇱 +56</option>
+  </select>
+  <input type="tel" placeholder="9 0000 0000">
+</div>
+
+
+
+<!-- Clave -->
+<div class="input-addon">
+  <span class="addon-text">Clave</span>
+  <input type="password" placeholder="Contraseña">
+</div>
+
+<!-- Recordarme y Olvidé -->
+<div class="login-footer">
+  <label class="remember">
+    <input type="checkbox" checked>
+    Recordarme
+  </label>
+  <a href="#/auth/reset" class="forgot">Olvidé mi contraseña</a>
+</div>
+
+<!-- Botón login -->
+<button class="btn-login">Login</button>
+</main>

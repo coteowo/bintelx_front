@@ -1,48 +1,56 @@
-/* preview.css */
+/* preview.css mejorado */
 
+/* Contenedor principal del panel de previsualización */
 #mailbox-preview {
-  font-size: 0.875rem; /* tamaño texto pequeño */
-  color: #eceef1;  /* gris text-gray-700 */
+  font-size: 0.875rem; /* texto base pequeño */
+  color: #374151; /* gris-700 para buen contraste */
   padding: 1rem;
-  background: white;
+  background-color: #ffffff;
   border-radius: 0.5rem;
   height: 100%;
   overflow-y: auto;
+  border: 1px solid #e5e7eb; /* gris-200 */
 }
 
+/* Tarjeta interna de previsualización */
 .preview-card {
-  background-color: #fff;
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
   border-radius: 0.5rem;
- /* box-shadow: 0 1px 4px rgba(0,0,0,0.1); */
-  padding: 1rem; /* agrega padding para que el contenido no quede pegado */
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem; /* espacio vertical entre campos */
+  box-shadow: none; /* quitar sombra para minimalismo */
+  padding: 1rem;
 }
 
+
+/* Campo de información (etiqueta + valor) */
 .preview-field {
   display: flex;
-  gap: 0.5rem;
-  font-size: 1rem;
-  color: #333;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  color: #374151; /* gris-700 */
 }
 
+/* Etiquetas */
 .preview-field strong {
-  width: 80px; /* ancho fijo para etiquetas */
-  color: #555;
-  flex-shrink: 0; /* que no se reduzca el ancho */
+  width: 90px;
+  color: #6b7280; /* gris-500 para jerarquía secundaria */
+  font-weight: 500;
+  flex-shrink: 0;
 }
 
+/* Valores */
 .preview-value {
   flex: 1;
   word-break: break-word;
+  color: #111827; /* gris-900 para mayor protagonismo */
 }
 
+/* Cuerpo del mensaje */
 .preview-body {
-  font-size: 0.9rem;
-  line-height: 1.4;
-  color: #444;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #374151; /* gris-700 */
   margin-top: 1rem;
-  border-top: 1px solid #e5e7eb; /* línea para separar cuerpo */
+  border-top: 1px solid #e5e7eb;
   padding-top: 1rem;
 }

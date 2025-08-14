@@ -1,5 +1,5 @@
-<aside id="mailbox-folders-panel" class="card">
-  <h2 class="text-xl font-bold mb-4">Correos</h2>
+<aside id="mailbox-folders-panel" class="card2">
+  <h2 class="text-xl font-bold mb-4"> Correos</h2>
 
   <!-- Este es el contenedor donde se inyectan los botones -->
   <div id="mailbox-folders" class="space-y-2"></div>

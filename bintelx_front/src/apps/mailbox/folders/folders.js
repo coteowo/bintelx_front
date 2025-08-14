@@ -10,7 +10,7 @@ export const sidebarOptions = [
   { name: 'Dashboard', icon: '📊' },
   { name: 'Estadísticas', icon: '📈' },
   { name: 'Ayuda', icon: '❓' },
-  { name: 'Enviar correo', icon: '✉️', isSendButton: true },
+  { name: 'Nuevo', icon: '✉️', isSendButton: true },
   { name: 'Debug', icon: '🐞', isDebugButton: true },
 ];
 

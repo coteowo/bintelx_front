@@ -1,0 +1,13 @@
+[
+  {
+    "path": "/login",
+    "app": "login",
+    "prefix": "",
+    "moduleName": "index"
+  },  {
+    "path": "/login/icons",
+    "app": "login",
+    "prefix": "",
+    "moduleName": "icons"
+  }
+]
