@@ -1,26 +1,25 @@
-/* preview.css mejorado */
+/* preview.css adaptado para fusionar con Inbox */
 
 /* Contenedor principal del panel de previsualización */
 #mailbox-preview {
   font-size: 0.875rem; /* texto base pequeño */
-  color: #374151; /* gris-700 para buen contraste */
+  color: #374151;       /* gris-700 para buen contraste */
   padding: 1rem;
-  background-color: #ffffff;
-  border-radius: 0.5rem;
+  background-color: transparent; /* quitar fondo individual */
+  border-radius: 0;             /* quitar bordes individuales */
   height: 100%;
   overflow-y: auto;
-  border: 1px solid #e5e7eb; /* gris-200 */
+  border: none;                  /* quitar borde */
 }
 
 /* Tarjeta interna de previsualización */
 .preview-card {
-  background-color: #ffffff;
-  border: 1px solid #e5e7eb;
+  background-color: #ffffff;  /* tarjeta interna puede mantener su fondo */
+  border: 1px solid #e5e7eb; /* opcional: borde interno de la tarjeta */
   border-radius: 0.5rem;
-  box-shadow: none; /* quitar sombra para minimalismo */
+  box-shadow: none;            /* quitar sombra */
   padding: 1rem;
 }
-
 
 /* Campo de información (etiqueta + valor) */
 .preview-field {
@@ -33,7 +32,7 @@
 /* Etiquetas */
 .preview-field strong {
   width: 90px;
-  color: #6b7280; /* gris-500 para jerarquía secundaria */
+  color: #6b7280; /* gris-500 */
   font-weight: 500;
   flex-shrink: 0;
 }
@@ -42,7 +41,7 @@
 .preview-value {
   flex: 1;
   word-break: break-word;
-  color: #111827; /* gris-900 para mayor protagonismo */
+  color: #111827; /* gris-900 */
 }
 
 /* Cuerpo del mensaje */
@@ -51,6 +50,6 @@
   line-height: 1.6;
   color: #374151; /* gris-700 */
   margin-top: 1rem;
-  border-top: 1px solid #e5e7eb;
+  border-top: 1px solid #e5e7eb; /* puedes mantenerlo como separación visual */
   padding-top: 1rem;
 }

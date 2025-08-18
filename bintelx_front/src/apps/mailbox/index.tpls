@@ -1,15 +1,13 @@
-<section class="mailbox-app grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 h-screen gap-4 p-4 bg-gray-100 text-gray-900 overflow-hidden">
-  <!-- Panel 1 -->
+<section class="mailbox-app">
+  <!-- Panel 1: Folders -->
   <div id="mailbox-panel-folders"></div>
 
-  <!-- Panel 2 -->
-  <div id="mailbox-panel-list"></div>
+  <!-- Panel 2+3: Inbox + Preview fusionados -->
+  <div class="panel-inbox-preview">
+    <div id="mailbox-panel-list"></div>
+    <div id="mailbox-panel-preview"></div>
+  </div>
 
-  <!-- Panel 3 -->
-  <div id="mailbox-panel-preview"></div>
-
-  <!-- Panel 4 -->
+  <!-- Panel 4: Details -->
   <div id="mailbox-panel-details"></div>
-
-  
 </section>

@@ -3,7 +3,7 @@
   <div class="mb-4 flex gap-2">
     <!-- Botón refrescar con emoji -->
     <button  id="btn-refresh" class="btn btn-refresh" aria-label="Actualizar" title="Actualizar">
-      🔄
+      refresh
     </button>
 
     <button class="btn btn-options">. . .</button>

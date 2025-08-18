@@ -1,35 +1,75 @@
-/* index.css */
-/* index.css (estructura general del layout) */
+/* ------------------ Reset general ------------------ */
 html, body {
   height: 100%;
   margin: 0;
   padding: 0.2%;
+  font-family: sans-serif;
 }
 
+/* ------------------ Contenedor principal ------------------ */
 .mailbox-app {
   display: grid;
-  grid-template-columns: 1fr 1fr 3fr 1fr;
+  grid-template-columns: 0.5fr 3fr 0.7fr; /* Folders | Inbox+Preview | Details */
   gap: 0.4rem;
-  height: 100vh; /* altura fija igual al viewport */
+  height: 100vh;
   background-color: #f8f9fa;
 }
 
-/* Importante: que cada panel dentro de la grilla tome toda la altura de la celda */
+/* ------------------ Panel Folders y Details ------------------ */
 #mailbox-panel-folders,
-#mailbox-panel-list,
-#mailbox-panel-preview {
+#mailbox-panel-details {
   height: 100%;
-  /* Para que los hijos con flex funcionen bien y scroll interno también */
   display: flex;
   flex-direction: column;
-  min-height: 0; /* evita overflow en flex */
+  min-height: 0;
+  border-right: 1px solid #e5e7eb;
 }
 
-/* Bordes solo en pantallas grandes */
+/* ------------------ Panel Inbox + Preview fusionados ------------------ */
+.panel-inbox-preview {
+  display: flex;
+  flex-direction: row; /* Inbox y Preview lado a lado */
+  gap: 0.5rem;
+  height: 100%;
+  background-color: #ffffff; /* fondo único */
+  border-radius: 0.5rem;     /* opcional: bordes redondeados */
+/*   border: 1px solid #e5e7eb; /* borde externo del panel unificado */
+  overflow: hidden;           /* scroll internos no sobresalen */
+}
+
+/* ------------------ Inbox (lista de mensajes) ------------------ */
+#mailbox-panel-list {
+  width: 33%;           /* más estrecho que Preview */
+  display: flex;
+  flex-direction: column;
+  min-height: 0;        /* importante para scroll */
+  border-right: 1px solid #e5e7eb; /* separación interna opcional */
+  background-color: transparent;    /* quitar fondo individual */
+}
+
+/* ------------------ Preview ------------------ */
+#mailbox-panel-preview {
+  width: 67%;           /* más ancho */
+  display: flex;
+  flex-direction: column;
+  min-height: 0;        /* scroll interno funciona */
+  background-color: transparent; /* quitar fondo individual */
+}
+
+/* ------------------ Scroll interno para ambos paneles ------------------ */
+.card1-scroll,
+#mailbox-preview {
+  flex-grow: 1;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+/* ------------------ Media query opcional para pantallas grandes ------------------ */
 @media (min-width: 1024px) {
   #mailbox-panel-folders,
   #mailbox-panel-list,
-  #mailbox-panel-preview {
-    border-right: 1px solid #e5e7eb;
+  #mailbox-panel-preview,
+  #mailbox-panel-details {
+ 
   }
 }

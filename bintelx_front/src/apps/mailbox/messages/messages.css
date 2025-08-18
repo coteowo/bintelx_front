@@ -1,16 +1,13 @@
-/* messages.css */
+/* messages.css adaptado para fusionar con Preview */
 
 /* Panel principal que contiene la lista de mensajes */
 .card1 {
   text-align: left;
-  background-color: #ffffff;
-  border: 0.5px solid #eceef1;
-  border-radius: 0rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background-color: transparent; /* quitar fondo individual */
+  border: none;                   /* quitar borde */
+  border-radius: 0;               /* quitar bordes redondeados */
+  box-shadow: none;               /* quitar sombra */
   padding: 1rem;
-
-  /* CAMBIO: quitar height fijo */
-  /* height: 55%; */
 
   /* Usar flex para que ocupe todo el alto posible */
   display: flex;
@@ -108,9 +105,9 @@
 }
 
 .btn-refresh {
-  font-size: 1.5rem;
+  font-size: 0.5rem;
   padding: 0.5rem;
-  width: 3rem;
+  width: 4rem;
   justify-content: center;
 }
 

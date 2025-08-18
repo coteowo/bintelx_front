@@ -4,7 +4,7 @@
 
 <aside class="card" id="mailbox-details-panel">
   <h4 class="text-xl font-bold mb-4">
-    <button>Opciones</button>
+    Mensaje
   </h4>
 
   <!-- Este main se llena dinámicamente con renderDetails() -->
