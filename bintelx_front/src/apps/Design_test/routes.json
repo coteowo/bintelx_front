@@ -1,0 +1,14 @@
+[
+  {
+    "path": "/Design_test",
+    "app": "Design_test",
+    "prefix": "",
+    "moduleName": "index"
+  },
+  {
+    "path": "/Design_test/Panel_design",
+    "app": "Design_test",
+    "prefix": "",
+    "moduleName": "Panel_design/panel"
+  }
+]

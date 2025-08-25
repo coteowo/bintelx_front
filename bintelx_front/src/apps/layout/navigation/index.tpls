@@ -7,5 +7,6 @@
     <li class="nav-item"><a href="/demo/form" class="nav-link">Forms</a></li>
     <li class="nav-item"><a href="/mailbox/index" class="nav-link">test</a></li>
     <li class="nav-item"><a href="/login/index" class="nav-link">login</a></li>
+    <li class="nav-item"><a href="/Design_test/index" class="nav-link">Design_test</a></li>
   </ul>
 </nav>
