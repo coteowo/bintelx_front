@@ -3,5 +3,7 @@
   <div id="mailbox-preview" class="text-sm text-gray-700"></div>
 
   <!-- Formulario para responder rápido -->
+<!-- Panel de debug arriba -->
+<div id="debug-panel" class="debug-container p-2 border-b mb-2"></div>
 
 </section>

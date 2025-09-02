@@ -1,0 +1,18 @@
+<!-- Botón para ocultar/mostrar el panel lateral -->
+<button id="toggle-sidebar" class="fixed top-2 right-2 z-50 bg-white border rounded px-2 py-1 shadow hover:bg-gray-100">
+  🡸 Ocultar
+</button>
+
+<!-- Panel lateral de detalles del mensaje -->
+<aside class="card" id="mailbox-details-panel">
+  <h4 class="text-xl font-bold mb-4">Mensaje</h4>
+
+  <!-- Información del mensaje: De, Asunto, Fecha, acciones -->
+  <div id="details-info" class="details-info mb-3"></div>
+
+  <!-- Contenedor donde se inyectará el formulario de enviar mensaje -->
+  <div id="details-form" class="details-form mb-3"></div>
+
+  <!-- Contenedor principal donde se muestran detalles o cuerpo del mensaje -->
+  <main id="mailbox-details" class="flex-1 bg-white rounded shadow-inner p-3"></main>
+</aside>

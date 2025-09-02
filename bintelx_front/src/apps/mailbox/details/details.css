@@ -59,10 +59,10 @@
   transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
 }
 
-#mailbox-details-panel.collapsed {
-  transform: translateX(100%); /* se desliza hacia la derecha */
-  opacity: 0;
-  width: 0;
-  padding: 0;
-  overflow: hidden;
+/* Elementos internos del panel */
+#mailbox-details-panel * {
+  transition: opacity 0.3s ease;
+}
+#mailbox-details-panel.collapsed * {
+  display: none; /* Oculta todo al colapsar */
 }

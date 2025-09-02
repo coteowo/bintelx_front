@@ -10,12 +10,16 @@ export function setupFormEnviar(onEnviar) {
     return;
   }
 
-  form.addEventListener('submit', (e) => {
+  // 🔥 Eliminar cualquier submit listener previo para no duplicar envíos
+  form.replaceWith(form.cloneNode(true));
+  const newForm = document.getElementById('form-enviar');
+
+  newForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const to = form.elements.to?.value?.trim();
-    const subject = form.elements.subject?.value?.trim();
-    const body = form.elements.body?.value?.trim();
+    const to = newForm.elements.to?.value?.trim();
+    const subject = newForm.elements.subject?.value?.trim();
+    const body = newForm.elements.body?.value?.trim();
 
     if (!to || !subject || !body) {
       alert('Por favor completa todos los campos del formulario.');
@@ -26,7 +30,7 @@ export function setupFormEnviar(onEnviar) {
 
     const nuevoMensaje = {
       id: Date.now(),
-      from: getCurrentDebugProfile(),  // aquí está el cambio clave
+      from: getCurrentDebugProfile(),
       to,
       subject,
       body,
@@ -42,7 +46,7 @@ export function setupFormEnviar(onEnviar) {
 
     if (typeof onEnviar === 'function') onEnviar(nuevoMensaje);
 
-    form.reset();
+    newForm.reset();
     alert('Mensaje enviado correctamente');
   });
 }

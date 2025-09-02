@@ -9,13 +9,17 @@ const debugProfiles = [
 // Estado actual
 let currentDebugProfile = debugProfiles[0].id;
 
+// Retorna el objeto completo del perfil activo con .email
 function getCurrentProfileObject() {
-  return debugProfiles.find(p => p.id === currentDebugProfile);
+  const profile = debugProfiles.find(p => p.id === currentDebugProfile);
+  if (!profile) return null;
+  return { email: profile.id, name: profile.name }; // ahora tiene .email
 }
 
-// Función principal del panel
+// Panel de depuración
 export function initDebugPanel(container, onRefreshCallback, onProfileChangeCallback) {
   container.innerHTML = '';
+
   const debugToolbar = document.createElement('div');
   debugToolbar.classList.add('debug-toolbar');
   debugToolbar.style.display = 'flex';
@@ -39,7 +43,7 @@ export function initDebugPanel(container, onRefreshCallback, onProfileChangeCall
     select.appendChild(option);
   });
 
-  // Establecer valor inicial
+  // Valor inicial
   select.value = currentDebugProfile;
 
   // Visualización del perfil activo
@@ -48,14 +52,16 @@ export function initDebugPanel(container, onRefreshCallback, onProfileChangeCall
   profileDisplay.style.fontWeight = 'bold';
   profileDisplay.textContent = `Perfil activo: ${getCurrentProfileObject().name} (${currentDebugProfile})`;
 
-  // Evento de cambio de perfil
+  // Cambio de perfil
   select.addEventListener('change', (e) => {
     currentDebugProfile = e.target.value;
     console.log('[DEBUG] Perfil seleccionado:', currentDebugProfile);
-    profileDisplay.textContent = `Perfil activo: ${getCurrentProfileObject().name} (${currentDebugProfile})`;
+
+    const activeProfile = getCurrentProfileObject();
+    profileDisplay.textContent = `Perfil activo: ${activeProfile.name} (${activeProfile.email})`;
 
     if (typeof onProfileChangeCallback === 'function') {
-      onProfileChangeCallback(currentDebugProfile);
+      onProfileChangeCallback(activeProfile);
     }
   });
 
@@ -68,7 +74,7 @@ export function initDebugPanel(container, onRefreshCallback, onProfileChangeCall
   btn.addEventListener('click', () => {
     console.log('[DEBUG] Botón refrescar presionado. Perfil actual:', currentDebugProfile);
     if (typeof onRefreshCallback === 'function') {
-      onRefreshCallback(currentDebugProfile);
+      onRefreshCallback(getCurrentProfileObject());
     }
   });
 
@@ -81,7 +87,7 @@ export function initDebugPanel(container, onRefreshCallback, onProfileChangeCall
   container.appendChild(debugToolbar);
 }
 
-// Exportar perfil actual
+// Exportar perfil actual completo con .email
 export function getCurrentDebugProfile() {
-  return currentDebugProfile;
+  return getCurrentProfileObject();
 }
